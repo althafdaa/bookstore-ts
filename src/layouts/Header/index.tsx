@@ -16,8 +16,8 @@ const Navigation: NavbarItem[] = [
 const Header: FC = () => {
   const { Header } = Layout;
   return (
-    <Header className="py-8 border-b rounded-b-sm fixed top-0 inset-x-0">
-      <nav className="flex items-center justify-between gap-4 px-4 max-w-[1080px] m-auto">
+    <Header className="py-8 border-b rounded-b-sm fixed top-0 inset-x-0 z-10 bg-white">
+      <nav className="flex items-center justify-between gap-4 max-w-[1080px] m-auto">
         <Link href={'/'}>
           <a>
             <FaBookOpen size={24} fill={'rgb(167 139 250)'} />
@@ -31,7 +31,7 @@ const Header: FC = () => {
                 <a className="group transition-all font-medium hover:text-violet-400 relative">
                   {item.label}
 
-                  <div className="transition-all delay-100 h-[1px] w-0 group-hover:w-full bg-violet-400"></div>
+                  <div className="transition-all duration-1000 delay-100 h-[1px] w-0 group-hover:w-full bg-violet-400"></div>
                 </a>
               </Link>
             );
