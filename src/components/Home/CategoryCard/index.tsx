@@ -13,37 +13,24 @@ interface Props {
 }
 
 const CategoryCard: FC<Props> = ({ item }) => {
+  const CategoryIcon: FC = () => {
+    return (
+      <>
+        {item.id === 1 && <FaSmile size={32} />}
+        {item.id === 11 && <FaMoneyBill size={32} />}
+        {item.id === 12 && <FaPen size={32} />}
+        {item.id === 19 && <FaComment size={32} />}
+        {item.id === 21 && <FaMoneyCheck size={32} />}
+      </>
+    );
+  };
+
   return (
     <>
-      <Link href={`/books/category/${item.id}`}>
+      <Link href={`/category/${item.id}`}>
         <a className="transition-all duration-500 px-4 py-6 bg-violet-400 hover:bg-violet-500 font-semibold rounded text-white hover:text-slate-50 flex flex-col items-center justify-center w-[200px] h-full text-center">
           <span className="h-1/2">
-            {item.id === 1 && (
-              <div className="p-3 rounded-lg bg-violet-700">
-                {' '}
-                <FaSmile size={32} />
-              </div>
-            )}
-            {item.id === 11 && (
-              <div className="p-3 rounded-lg bg-violet-700">
-                <FaMoneyBill size={32} />
-              </div>
-            )}
-            {item.id === 12 && (
-              <div className="p-3 rounded-lg bg-violet-700">
-                <FaPen size={32} />
-              </div>
-            )}
-            {item.id === 19 && (
-              <div className="p-3 rounded-lg bg-violet-700">
-                <FaComment size={32} />
-              </div>
-            )}
-            {item.id === 21 && (
-              <div className="p-3 rounded-lg bg-violet-700">
-                <FaMoneyCheck size={32} />
-              </div>
-            )}
+            <CategoryIcon />
           </span>
           <span className="h-1/2">{item.name}</span>
         </a>

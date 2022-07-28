@@ -7,6 +7,9 @@ import HeroBanner from '../components/Home/HeroBanner';
 import { useFetchBooks } from '../hooks/useFetchBooks';
 import { useFetchCategories } from '../hooks/useFetchCategories';
 import Photo from '../assets/images/photo.jpg';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { SET_CATEGORIES } from '../store/slice/BookSlice';
 
 interface Category {
   id: number;
@@ -27,6 +30,11 @@ interface Book {
 const Home: NextPage = () => {
   const { data: categories } = useFetchCategories();
   const { data: books } = useFetchBooks();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(SET_CATEGORIES(categories?.data));
+  }, [categories, dispatch]);
 
   return (
     <>

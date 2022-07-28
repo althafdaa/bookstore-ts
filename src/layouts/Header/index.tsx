@@ -1,4 +1,3 @@
-import { Layout } from 'antd';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { FaBookOpen } from 'react-icons/fa';
@@ -14,9 +13,8 @@ const Navigation: NavbarItem[] = [
 ];
 
 const Header: FC = () => {
-  const { Header } = Layout;
   return (
-    <Header className="py-8 border-b rounded-b-sm fixed top-0 inset-x-0 z-10 bg-white">
+    <header className="py-8 border-b rounded-b-sm fixed top-0 inset-x-0 z-10 bg-white">
       <nav className="flex items-center justify-between gap-4 max-w-[1080px] m-auto">
         <Link href={'/'}>
           <a>
@@ -44,7 +42,7 @@ const Header: FC = () => {
           </Link>
         </div>
       </nav>
-    </Header>
+    </header>
   );
 };
 
