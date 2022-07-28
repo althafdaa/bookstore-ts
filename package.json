@@ -1,6 +1,5 @@
 {
   "name": "bookstore-ts",
-  "proxy": "https://asia-southeast2-sejutacita-app.cloudfunctions.net",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "proxy": "https://asia-southeast2-sejutacita-app.cloudfunctions.net",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
     "antd": "^4.21.7",

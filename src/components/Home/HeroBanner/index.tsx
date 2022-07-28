@@ -3,8 +3,8 @@ import CharacterBanner from './CharacterBanner';
 
 const HeroBanner: FC = () => {
   return (
-    <section className="h-[calc(100vh-97px)] relative flex items-center">
-      <div className="grid grid-cols-2">
+    <section className="h-screen relative flex items-center">
+      <div className="grid grid-cols-2 -mt-24">
         <div className="flex flex-col justify-center">
           <h3 className="font-medium text-violet-500">BOOKSTORE MARKET</h3>
           <h1 className="text-6xl font-semibold leading-tight">

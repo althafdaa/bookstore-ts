@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import React, { FC } from 'react';
 import Character from '../../../../assets/images/character.png';
 import BookOne from '../../../../assets/images/bookone.png';
 import BookTwo from '../../../../assets/images/booktwo.png';

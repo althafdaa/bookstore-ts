@@ -24,14 +24,14 @@ const Header: FC = () => {
           </a>
         </Link>
 
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-6 items-center">
           {Navigation.map((item, idx) => {
             return (
               <Link href={item.path} key={idx}>
                 <a className="group transition-all font-medium hover:text-violet-400 relative">
                   {item.label}
 
-                  <div className="transition-all duration-1000 delay-100 h-[1px] w-0 group-hover:w-full bg-violet-400"></div>
+                  <div className="transition-all duration-500 delay-100 h-[1px] w-0 group-hover:w-full bg-violet-400"></div>
                 </a>
               </Link>
             );
