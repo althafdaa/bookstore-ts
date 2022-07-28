@@ -7,11 +7,15 @@ interface BooksParams {
   size: number;
 }
 
-export const useFetchBooks = () => {
-  const q: BooksParams = {
-    categoryId: 1,
-    page: 1,
-    size: 4,
+export const useFetchBooks = ({
+  categoryId = 1,
+  page = 1,
+  size = 4,
+}: BooksParams) => {
+  const q = {
+    categoryId,
+    page,
+    size,
   };
 
   const params: string = new URLSearchParams(q).toString();
