@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface Books {
-  books: object[];
+export interface BooksSliceType {
+  books: Array<object>;
+  category: Array<object>;
 }
 
-const initialState: Books = {
+const initialState: BooksSliceType = {
   books: [],
+  category: [],
 };
 
 const bookSlice = createSlice({
@@ -16,9 +18,13 @@ const bookSlice = createSlice({
       console.log('books', state.books);
       console.log('action', action);
     },
+
+    SET_CATEGORIES: (state, action) => {
+      state.category = action.payload;
+    },
   },
 });
 
-export const { storeBooks } = bookSlice.actions;
+export const { storeBooks, SET_CATEGORIES } = bookSlice.actions;
 
 export default bookSlice.reducer;

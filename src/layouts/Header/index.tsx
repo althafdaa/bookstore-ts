@@ -1,4 +1,3 @@
-import { Layout } from 'antd';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { FaBookOpen } from 'react-icons/fa';
@@ -14,24 +13,23 @@ const Navigation: NavbarItem[] = [
 ];
 
 const Header: FC = () => {
-  const { Header } = Layout;
   return (
-    <Header className="py-8 border-b rounded-b-sm fixed top-0 inset-x-0">
-      <nav className="flex items-center justify-between gap-4 px-4 max-w-[1080px] m-auto">
+    <header className="py-8 border-b rounded-b-sm fixed top-0 inset-x-0 z-10 bg-white">
+      <nav className="flex items-center justify-between gap-4 max-w-[1080px] m-auto">
         <Link href={'/'}>
           <a>
             <FaBookOpen size={24} fill={'rgb(167 139 250)'} />
           </a>
         </Link>
 
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-6 items-center">
           {Navigation.map((item, idx) => {
             return (
               <Link href={item.path} key={idx}>
                 <a className="group transition-all font-medium hover:text-violet-400 relative">
                   {item.label}
 
-                  <div className="transition-all delay-100 h-[1px] w-0 group-hover:w-full bg-violet-400"></div>
+                  <div className="transition-all duration-500 delay-100 h-[1px] w-0 group-hover:w-full bg-violet-400"></div>
                 </a>
               </Link>
             );
@@ -44,7 +42,7 @@ const Header: FC = () => {
           </Link>
         </div>
       </nav>
-    </Header>
+    </header>
   );
 };
 
