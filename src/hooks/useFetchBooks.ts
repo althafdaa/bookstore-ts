@@ -1,7 +1,7 @@
 import axios from 'axios';
 import useSWR from 'swr';
 
-interface BooksParams {
+interface BooksParamsType {
   categoryId: number;
   page: number;
   size: number;
@@ -11,14 +11,16 @@ export const useFetchBooks = ({
   categoryId = 1,
   page = 1,
   size = 4,
-}: BooksParams) => {
+}: BooksParamsType) => {
   const q = {
     categoryId,
     page,
     size,
   };
 
-  const params: string = new URLSearchParams(q).toString();
+  const params: string = new URLSearchParams(
+    q as Record<string, any>
+  ).toString();
 
   const key = `https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?${params}`;
   const fetcher = async (key: string): Promise<any> => {
