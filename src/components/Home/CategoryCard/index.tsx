@@ -27,7 +27,7 @@ const CategoryCard: FC<Props> = ({ item }) => {
 
   return (
     <>
-      <Link href={`/category`}>
+      <Link href={`/category?id=${item.id}`}>
         <a className="transition-all duration-500 px-4 py-6 bg-violet-400 hover:bg-violet-500 font-semibold rounded text-white hover:text-slate-50 flex flex-col items-center justify-center w-[200px] h-full text-center">
           <span className="h-1/2">
             <CategoryIcon />

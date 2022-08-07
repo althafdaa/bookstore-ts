@@ -2,12 +2,13 @@
 import { Form, Input, Select } from 'antd';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BookType, CategoryType } from '..';
 import { useFetchBooks } from '../../hooks/useFetchBooks';
 import { ReducerType } from '../../store';
 import Photo from '../../assets/images/photo.jpg';
+import { useRouter } from 'next/router';
 
 interface Props {
   categoryId: number;
@@ -16,36 +17,51 @@ interface Props {
 const CategoryPage: NextPage<Props> = () => {
   const [form] = Form.useForm();
   const categories = useSelector((state: ReducerType) => state.books.category);
+  const router = useRouter();
+  const id = Number(router.query.id);
+  const [categoryId, setCategoryId] = useState(id ?? 1);
+
+  const addQueryParam = (key: string, value: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.append(key, value);
+    window.history.pushState({}, '', url.toString());
+  };
 
   const { data: books } = useFetchBooks({
-    categoryId: 1,
+    categoryId: categoryId,
     page: 1,
-    size: 10,
+    size: 8,
   });
-
-  //   console.log(books?.data);
 
   return (
     <main className="mt-20">
-      <Form form={form}>
-        <Input />
-        <Select className="w-[200px] bg-green-600">
+      <Form form={form} className="flex gap-4">
+        <Select
+          className="w-[300px]"
+          defaultValue={categoryId}
+          onChange={(e) => {
+            const val = Number(e);
+            setCategoryId(val);
+            addQueryParam('id', e.toString());
+          }}
+        >
           {categories.map((item: CategoryType, idx: number) => {
             return (
-              <Select.Option key={`${item.name}-${idx}`}>
+              <Select.Option value={item.id} key={`${item.name}-${idx}`}>
                 {item.name}
               </Select.Option>
             );
           })}
         </Select>
+        <Input />
       </Form>
 
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-4 mt-4 gap-4">
         {books?.data?.map((item: BookType, idx: number) => {
           return (
             <Link href={`/books/${item.id}`} key={`${item.title}-${idx}`}>
               <a
-                className="group w-[250px] min-h-[250px] border rounded-xl shadow pb-4 relative"
+                className="group w-[250px] min-h-[400px] border rounded-xl shadow pb-4 relative"
                 key={`${item.title}-${idx}`}
               >
                 <div
@@ -53,7 +69,7 @@ const CategoryPage: NextPage<Props> = () => {
                   style={{ backgroundImage: `url(${item.cover_url})` }}
                 ></div>
 
-                <div className="h-[60px] w-[60px] absolute left-[37%] top-[55%] bg-white rounded-full flex items-center justify-center">
+                <div className="h-[60px] w-[60px] absolute left-[37%] top-[65%] bg-white rounded-full flex items-center justify-center">
                   <img
                     className="w-full h-full rounded-full p-1"
                     src={Photo.src}
