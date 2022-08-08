@@ -23,7 +23,7 @@ const CategoryPage: NextPage<Props> = () => {
 
   const addQueryParam = (key: string, value: string) => {
     const url = new URL(window.location.href);
-    url.searchParams.append(key, value);
+    url.searchParams.set(key, value);
     window.history.pushState({}, '', url.toString());
   };
 
@@ -32,6 +32,21 @@ const CategoryPage: NextPage<Props> = () => {
     page: 1,
     size: 8,
   });
+
+  const [filteredBooks, setFilteredBooks] = useState(books?.data ?? []);
+
+  const onSearch = (value: string) => {
+    if (value === '') return setFilteredBooks(books?.data);
+
+    const filterBooks = books?.data?.filter((book: BookType) => {
+      return book.title.toLocaleLowerCase().includes(value.toLocaleLowerCase());
+    });
+
+    setFilteredBooks(filterBooks);
+  };
+
+  const BooksNotFound = filteredBooks?.length === 0;
+  const BooksExist = filteredBooks?.length > 0;
 
   return (
     <main className="mt-20">
@@ -53,46 +68,49 @@ const CategoryPage: NextPage<Props> = () => {
             );
           })}
         </Select>
-        <Input />
+        <Input onChange={(e) => onSearch(e.target.value)} />
       </Form>
 
       <div className="grid grid-cols-4 mt-4 gap-4">
-        {books?.data?.map((item: BookType, idx: number) => {
-          return (
-            <Link href={`/books/${item.id}`} key={`${item.title}-${idx}`}>
-              <a
-                className="group w-[250px] min-h-[400px] border rounded-xl shadow pb-4 relative"
-                key={`${item.title}-${idx}`}
-              >
-                <div
-                  className="transition duration-500 w-full h-[80%] rounded-t-xl bg-center bg-cover group-hover:scale-[1.01] shadow-md"
-                  style={{ backgroundImage: `url(${item.cover_url})` }}
-                ></div>
+        {BooksExist &&
+          filteredBooks.map((item: BookType, idx: number) => {
+            return (
+              <Link href={`/books/${item.id}`} key={`${item.title}-${idx}`}>
+                <a
+                  className="group w-[250px] min-h-[400px] border rounded-xl shadow pb-4 relative"
+                  key={`${item.title}-${idx}`}
+                >
+                  <div
+                    className="transition duration-500 w-full h-[80%] rounded-t-xl bg-center bg-cover group-hover:scale-[1.01] shadow-md"
+                    style={{ backgroundImage: `url(${item.cover_url})` }}
+                  ></div>
 
-                <div className="h-[60px] w-[60px] absolute left-[37%] top-[65%] bg-white rounded-full flex items-center justify-center">
-                  <img
-                    className="w-full h-full rounded-full p-1"
-                    src={Photo.src}
-                    alt="image"
-                  />
-                </div>
+                  <div className="h-[60px] w-[60px] absolute left-[37%] top-[65%] bg-white rounded-full flex items-center justify-center">
+                    <img
+                      className="w-full h-full rounded-full p-1"
+                      src={Photo.src}
+                      alt="image"
+                    />
+                  </div>
 
-                <div className="h-[20%] flex flex-col items-center justify-center mt-1">
-                  <span className="font-semibold">{item.title}</span>
-                  {item.authors.map((item, idx) => {
-                    if (idx === 0) {
-                      return (
-                        <span key={idx} className="text-[10px]">
-                          {item}
-                        </span>
-                      );
-                    }
-                  })}
-                </div>
-              </a>
-            </Link>
-          );
-        })}
+                  <div className="h-[20%] flex flex-col items-center justify-center mt-1">
+                    <span className="font-semibold">{item.title}</span>
+                    {item.authors.map((item, idx) => {
+                      if (idx === 0) {
+                        return (
+                          <span key={idx} className="text-[10px]">
+                            {item}
+                          </span>
+                        );
+                      }
+                    })}
+                  </div>
+                </a>
+              </Link>
+            );
+          })}
+
+        {BooksNotFound && <div>Books not found</div>}
       </div>
     </main>
   );
