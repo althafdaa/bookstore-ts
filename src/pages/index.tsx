@@ -11,12 +11,12 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { SET_CATEGORIES } from '../store/slice/BookSlice';
 
-interface Category {
+export interface CategoryType {
   id: number;
   name: string;
 }
 
-interface Book {
+export interface BookType {
   audio_length: number;
   authors: string[];
   category_id: number;
@@ -29,7 +29,7 @@ interface Book {
 
 const Home: NextPage = () => {
   const { data: categories } = useFetchCategories();
-  const { data: books } = useFetchBooks();
+  const { data: books } = useFetchBooks({ categoryId: 1, page: 1, size: 4 });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
         </h2>
 
         <ul className="flex justify-between gap-4">
-          {books?.data?.map((item: Book, idx: number) => {
+          {books?.data?.map((item: BookType, idx: number) => {
             return (
               <Link href={`/books/${item.id}`} key={idx}>
                 <a className="group w-[250px] min-h-[250px] border rounded-xl shadow pb-4 relative">
@@ -74,7 +74,11 @@ const Home: NextPage = () => {
                     <span className="font-semibold">{item.title}</span>
                     {item.authors.map((item, idx) => {
                       if (idx === 0) {
-                        return <span className="text-[10px]">{item}</span>;
+                        return (
+                          <span key={idx} className="text-[10px]">
+                            {item}
+                          </span>
+                        );
                       }
                     })}
                   </div>
@@ -93,7 +97,7 @@ const Home: NextPage = () => {
 
         <ul className="flex justify-between">
           {categories?.data?.map(
-            (item: Category, idx: number): React.ReactNode => {
+            (item: CategoryType, idx: number): React.ReactNode => {
               return (
                 <li className="group" key={idx}>
                   <CategoryCard item={item} />
